@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendor Dashboard - Campus Cafeteria System</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/dashboard.css">
+  <link rel="stylesheet" href="../../css/vendor.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="logo">
+        <h1>CampusCafe</h1>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="#" class="active"><span class="icon">📊</span> Dashboard</a></li>
+          <li><a href="#products"><span class="icon">🍽️</span> Products</a></li>
+          <li><a href="#orders"><span class="icon">📋</span> Orders</a></li>
+          <li><a href="#profile"><span class="icon">👤</span> Profile</a></li>
+        </ul>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <a href="#" id="logout-btn" class="logout-btn"><span class="icon">🚪</span> Logout</a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <header class="dashboard-header">
+        <div class="header-title">
+          <h1>Vendor Dashboard</h1>
+          <p class="breadcrumb">Home / Dashboard</p>
+        </div>
+        
+        <div class="header-actions">
+          <div class="vendor-profile">
+            <span class="vendor-name" id="vendor-name">Loading...</span>
+            <div class="avatar" id="vendor-avatar">V</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dashboard Content -->
+      <div class="dashboard-content">
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+          <div class="summary-card">
+            <div class="summary-icon" style="background-color: var(--primary-50);">📦</div>
+            <div class="summary-info">
+              <h3>Total Products</h3>
+              <p class="summary-value" id="total-products">0</p>
+            </div>
+          </div>
+          
+          <div class="summary-card">
+            <div class="summary-icon" style="background-color: var(--secondary-50);">⏳</div>
+            <div class="summary-info">
+              <h3>Pending Orders</h3>
+              <p class="summary-value" id="pending-orders">0</p>
+            </div>
+          </div>
+          
+          <div class="summary-card">
+            <div class="summary-icon" style="background-color: var(--accent-50);">✅</div>
+            <div class="summary-info">
+              <h3>Completed Today</h3>
+              <p class="summary-value" id="completed-orders">0</p>
+            </div>
+          </div>
+          
+          <div class="summary-card">
+            <div class="summary-icon" style="background-color: #E8F5E9;">💰</div>
+            <div class="summary-info">
+              <h3>Today's Revenue</h3>
+              <p class="summary-value" id="today-revenue">₹0</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Products Section -->
+        <section class="content-section" id="products-section">
+          <div class="section-header">
+            <h2>Products Management</h2>
+            <button id="add-product-btn" class="btn btn-primary">Add New Product</button>
+          </div>
+
+          <div class="products-table-container">
+            <table class="products-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Availability</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="products-table-body">
+                <!-- Products will be dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- Orders Queue Section -->
+        <section class="content-section" id="orders-section">
+          <div class="section-header">
+            <h2>Order Queue</h2>
+          </div>
+
+          <div class="orders-list" id="orders-container">
+            <!-- Orders will be dynamically populated -->
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Add/Edit Product Modal -->
+  <div class="modal" id="product-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 id="product-modal-title">Add New Product</h2>
+        <button class="close-modal">&times;</button>
+      </div>
+      
+      <div class="modal-body">
+        <form id="product-form">
+          <input type="hidden" id="product-id">
+          <div class="form-group">
+            <label for="product-name">Product Name</label>
+            <input type="text" id="product-name" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="product-description">Description</label>
+            <textarea id="product-description" required></textarea>
+          </div>
+          
+          <div class="form-group">
+            <label for="product-price">Price (₹)</label>
+            <input type="number" id="product-price" min="0" step="0.01" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="product-category">Category</label>
+            <select id="product-category" required>
+              <option value="">Select Category</option>
+              <option value="Breakfast">Breakfast</option>
+              <option value="Lunch">Lunch</option>
+              <option value="Snacks">Snacks</option>
+              <option value="Beverages">Beverages</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="product-availability">Availability</label>
+            <select id="product-availability" required>
+              <option value="true">Available</option>
+              <option value="false">Not Available</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancel-product">Cancel</button>
+        <button class="btn btn-primary" id="save-product">Save Product</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../js/main.js"></script>
+  <script src="../../js/vendor-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendor Login - Shop Management System</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/login.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="logo">
+        <h1>ShopManager</h1>
+      </div>
+      <nav class="main-nav">
+        <ul>
+          <li><a href="../../index.html">Home</a></li>
+          <li><a href="../admin/login.html">Admin</a></li>
+          <li><a href="../user/login.html">User</a></li>
+          <li><a href="../vendor/login.html" class="active">Vendor</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="login-container">
+      <div class="login-card vendor-login">
+        <div class="login-header">
+          <h2>Vendor Login</h2>
+          <p>Sign in to access your shop dashboard</p>
+        </div>
+        
+        <form id="vendor-login-form" class="login-form">
+          <div class="form-group">
+            <label for="vendor-username">Username</label>
+            <input type="text" id="vendor-username" name="username" required autocomplete="username">
+          </div>
+          
+          <div class="form-group">
+            <label for="vendor-password">Password</label>
+            <input type="password" id="vendor-password" name="password" required autocomplete="current-password">
+          </div>
+          
+          <div class="login-options">
+            <div class="form-check">
+              <input type="checkbox" id="remember-me" class="form-check-input">
+              <label for="remember-me">Remember me</label>
+            </div>
+            <div class="forgot-password">
+              <a href="#forgot-password">Forgot password?</a>
+            </div>
+          </div>
+          
+          <div class="form-group form-actions">
+            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+          </div>
+          
+          <div class="form-footer">
+            <p>Contact admin if you've lost your credentials</p>
+          </div>
+        </form>
+      </div>
+    </main>
+    
+    
+    <footer class="footer">
+      <p>&copy; 2025 ShopManager. All rights reserved.</p>
+    </footer>
+  </div>
+
+  <script src="../../js/main.js"></script>
+  <script src="../../js/vendor.js"></script>
+</body>
+</html>

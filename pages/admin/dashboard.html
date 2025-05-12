@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - Campus Cafeteria System</title>
+  <link rel="stylesheet" href="../../css/styles.css">
+  <link rel="stylesheet" href="../../css/dashboard.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap">
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="logo">
+        <h1>CampusCafe</h1>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <ul>
+          <li><a href="#" class="active"><span class="icon">📊</span> Dashboard</a></li>
+       
+          <li><a href="#"><span class="icon">👥</span> Vendors</a></li>
+        
+        </ul>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <a href="../../index.html" class="logout-btn"><span class="icon">🚪</span> Logout</a>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <header class="dashboard-header">
+        <div class="header-title">
+          <h1>Admin Dashboard</h1>
+          <p class="breadcrumb">Home / Dashboard</p>
+        </div>
+        
+        <div class="header-actions">
+          <div class="search-bar">
+            <input type="text" placeholder="Search outlets...">
+            <button type="button" class="search-btn">🔍</button>
+          </div>
+          
+          <div class="admin-profile">
+            <span class="admin-name">Admin User</span>
+            <div class="avatar">A</div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Dashboard Content -->
+      <div class="dashboard-content">
+        <!-- Summary Cards -->
+        <div class="summary-cards">
+          <!-- Cards will be dynamically populated -->
+        </div>
+
+        <!-- Food Outlet Management Section -->
+        <section class="content-section">
+          <div class="section-header">
+            <h2>Food Outlet Management</h2>
+            <button id="add-shop-btn" class="btn btn-primary">Add New Outlet</button>
+          </div>
+
+          <!-- Outlet Cards -->
+          <div class="shop-cards" id="shop-cards-container">
+            <!-- Shop cards will be dynamically populated -->
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <!-- Modal for adding a new outlet -->
+  <div class="modal" id="add-shop-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Add New Food Outlet</h2>
+        <button class="close-modal">&times;</button>
+      </div>
+      
+      <div class="modal-body">
+        <form id="add-shop-form">
+          <div class="form-group">
+            <label for="shop-name">Outlet Name</label>
+            <input type="text" id="shop-name" name="shopName" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="vendor-name">Vendor Name</label>
+            <input type="text" id="vendor-name" name="vendorName" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="shop-location">Location</label>
+            <input type="text" id="shop-location" name="location" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="contact-number">Contact Number</label>
+            <input type="text" id="contact-number" name="contactNumber" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="shop-type">Outlet Type</label>
+            <select id="shop-type" name="shopType" required>
+              <option value="">Select Outlet Type</option>
+              <option value="Cafe">Cafe & Beverages</option>
+              <option value="FastFood">Fast Food</option>
+              <option value="HealthyFood">Healthy Food</option>
+              <option value="MultiCuisine">Multi-Cuisine</option>
+              <option value="Snacks">Snacks & Refreshments</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="shop-status">Status</label>
+            <select id="shop-status" name="status" required>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancel-add-shop">Cancel</button>
+        <button class="btn btn-primary" id="save-shop">Save Outlet</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal for generating vendor credentials -->
+  <div class="modal" id="credentials-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Generate Vendor Credentials</h2>
+        <button class="close-modal">&times;</button>
+      </div>
+      
+      <div class="modal-body">
+        <form id="credentials-form">
+          <div class="form-group">
+            <label for="vendor-email">Vendor Email</label>
+            <input type="email" id="vendor-email" name="vendorEmail" required>
+          </div>
+          
+          <div class="form-group">
+            <label for="generated-username">Username</label>
+            <input type="text" id="generated-username" name="username" readonly>
+            <button type="button" class="btn btn-secondary btn-sm" id="regenerate-username">Regenerate</button>
+          </div>
+          
+          <div class="form-group">
+            <label for="generated-password">Password</label>
+            <input type="text" id="generated-password" name="password" readonly>
+            <button type="button" class="btn btn-secondary btn-sm" id="regenerate-password">Regenerate</button>
+          </div>
+        </form>
+      </div>
+      
+      <div class="modal-footer">
+        <button class="btn btn-secondary" id="cancel-credentials">Cancel</button>
+        <button class="btn btn-primary" id="save-credentials">Save & Send Credentials</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shop Details Modal -->
+  <div class="modal" id="shop-details-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Shop Details</h2>
+        <button class="close-modal">&times;</button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="shop-details">
+          <div class="detail-row">
+            <label>Shop Name:</label>
+            <span id="detail-shop-name"></span>
+          </div>
+          <div class="detail-row">
+            <label>Vendor Name:</label>
+            <span id="detail-vendor-name"></span>
+          </div>
+          <div class="detail-row">
+            <label>Location:</label>
+            <span id="detail-location"></span>
+          </div>
+          <div class="detail-row">
+            <label>Contact Number:</label>
+            <span id="detail-contact"></span>
+          </div>
+          <div class="detail-row">
+            <label>Shop Type:</label>
+            <span id="detail-shop-type"></span>
+          </div>
+          <div class="detail-row">
+            <label>Status:</label>
+            <span id="detail-status"></span>
+          </div>
+          <div class="detail-row">
+            <label>Created At:</label>
+            <span id="detail-created-at"></span>
+          </div>
+          <div class="detail-row">
+            <label>Last Updated:</label>
+            <span id="detail-updated-at"></span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button class="btn btn-secondary" onclick="closeModal('shop-details-modal')">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../js/main.js"></script>
+  <script src="../../js/dashboard.js"></script>
+</body>
+</html>
